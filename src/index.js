@@ -1,22 +1,37 @@
-import sql from 'mssql'
-import { sqlConfig } from './sql/config.js'
+import express from 'express'
+
+const app = express()
+const port = 4000
+
+app.use(express.urlencoded({extended: true})) //converte carac. especiais em html entity
+app.use(express.json()) //Fará o parse no conteúdo JSON
+app.disable('x-powered-by') //Removendo por questões de segurança
+
+import rotasProdutos from './routes/produtos.js'
+
+//Rotas Restfull do nosso app
+app.use('/api/produtos', rotasProdutos)
 
 
-sql.on('error', err => {
-    console.log(err)
+//Definimos a nossa rota default
+app.get('/api', (req, res) => {
+    res.status(200).json({
+        mensagem: '💊API da Farmacia 100% funcional!',
+        versao: '1.0.0'
+    })
 })
 
-sql.connect(sqlConfig).then(pool => {
-    return pool.request()
-    .input('nome', sql.VarChar(30), 'Sabonete Protex')
-    .input('quantidade', sql.VarChar(20), '400ml')
-    .input('marca', sql.VarChar(30), 'EMS')
-    .input('fabricante', sql.VarChar(30), 'Colgate-Palmolive')
-    .input('descricao', sql.VarChar(500), 'Sabonete')
-    .input('preco', sql.Numeric, 16.94)
-    .execute('SP_I_FAR_FARMACIA')
-}).then(result => {
-    console.log(result);
-}).catch(err => {
-    console.log(err.message);
+// Rota de conteúdo público
+app.use('/', express.static('public'))
+
+// Rota para tratar erros 404
+app.use( function(req, res){
+    res.status(404).json({
+        mensagem: `A rota ${req.originalUrl} não existe!`
+    })
 })
+
+app.listen(port, () => {
+    console.log(`🚀Servidor web rodando na porta ${port}`);
+})
+

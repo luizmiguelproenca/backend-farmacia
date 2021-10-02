@@ -1,0 +1,47 @@
+//Teste de requisições REST - Produtos
+
+@baseURL = http://localhost:4000/api 
+
+@nome = Dorflex
+###
+// GET - Lista todos os produtos
+GET {{baseURL}}/produtos
+Content-Type: application/json
+
+###
+// GET - Lista apenas um produto pelo o nome
+GET {{baseURL}}/produtos/{{nome}}
+Content-Type: application/json
+
+###
+// POST - Inclui um novo produto
+POST {{baseURL}}/produtos
+Content-Type: application/json
+
+{
+    "nome": "Dorflex",
+    "quantidade": "1g c/ 20 comp",
+    "marca": "Alcon",
+    "fabricante": "Sanofi Aventis",
+    "descricao": "Este medicamento é indicado como analgésico (para dor) e antitérmico (para febre)",
+    "preco": 15.99
+}
+
+###
+// PUT - Altera produto já existente
+PUT {{baseURL}}/produtos
+Content-Type: application/json
+
+{
+    "nome": "Dorflex",
+    "quantidade": "1g c/ 20 comp",
+    "marca": "Alcon",
+    "fabricante": "Sanofi Aventis",
+    "descricao": "Este medicamento é indicado como analgésico (para dor) e antitérmico (para febre)",
+    "preco": 15.99
+}
+
+###
+// DELETE - Apaga um produto através do nome
+DELETE {{baseURL}}/produtos/{{nome}}
+Content-Type: application/json
