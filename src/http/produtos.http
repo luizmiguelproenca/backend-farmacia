@@ -21,7 +21,7 @@ POST {{baseURL}}/produtos
 Content-Type: application/json
 
 {
-    "nome": "Dorflex",
+    "nome": "Dorflex2",
     "quantidade": "1g c/ 20 comp",
     "marca": "Alcon",
     "fabricante": "Sanofi Aventis",
