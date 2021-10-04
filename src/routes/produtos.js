@@ -39,7 +39,7 @@ router.get('/:nome', (req, res) => {
         }).then(dados => {
             res.status(200).json(dados.recordset)
         }).catch( err => {
-            res.status(400).json(err) //400 - Bad Request
+            res.status(400).json(err.message) //400 - Bad Request
         })
     } catch (err){
         console.error(err);
@@ -63,11 +63,12 @@ router.post('/', (req, res) => {
         .input('preco', sql.Numeric(5,2), preco)
         .execute('SP_I_FAR_FARMACIA')
     }).then(dados => {
-        res.status(200).json(dados.output)
+        res.status(200).json('PRODUTO CADASTRADO COM SUCESSO!')
     }).catch(err => {
         res.status(400).json(err.message) // Bad Request
     }) 
 })
+
 
 /*
  * PUT /produtos
@@ -75,8 +76,9 @@ router.post('/', (req, res) => {
  */
 router.put('/', (req, res) => {
     sql.connect(sqlConfig).then(pool => {
-        const {nome, quantidade, marca, fabricante, descricao, preco} = req.body
+        const {codigo, nome, quantidade, marca, fabricante, descricao, preco} = req.body
         return pool.request()
+        .input('codigo', sql.Int, codigo)
         .input('nome', sql.VarChar(30), nome)
         .input('quantidade', sql.VarChar(20), quantidade)
         .input('marca', sql.VarChar(30), marca)
@@ -97,11 +99,11 @@ router.put('/', (req, res) => {
  * Apaga um produto pelo nome
  */
 
-router.delete('/:nome', (req, res) => {
+router.delete('/:codigo', (req, res) => {
     sql.connect(sqlConfig).then(pool => {
-        const nome = req.params.nome
+        const codigo = req.params.codigo
         return pool.request()
-        .input('nome', sql.VarChar(30), nome)
+        .input('codigo', sql.Int, codigo)
         .execute('SP_D_FAR_FARMACIA')
     }).then(dados => {
         res.status(200).json('Produto excluído com sucesso!')

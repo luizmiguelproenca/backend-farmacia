@@ -3,6 +3,9 @@
 @baseURL = http://localhost:4000/api 
 
 @nome = Dorflex
+
+@codigo = 1
+
 // GET - Lista todos os produtos
 GET {{baseURL}}/produtos
 Content-Type: application/json
@@ -33,6 +36,7 @@ PUT {{baseURL}}/produtos
 Content-Type: application/json
 
 {
+    "codigo": "4",
     "nome": "Dorflex",
     "quantidade": "1g c/ 20 comp",
     "marca": "Alcon",
@@ -43,5 +47,5 @@ Content-Type: application/json
 
 ###
 // DELETE - Apaga um produto através do nome
-DELETE {{baseURL}}/produtos/{{nome}}
+DELETE {{baseURL}}/produtos/{{codigo}}
 Content-Type: application/json
