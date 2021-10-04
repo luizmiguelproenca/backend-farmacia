@@ -3,7 +3,6 @@
 @baseURL = http://localhost:4000/api 
 
 @nome = Dorflex
-###
 // GET - Lista todos os produtos
 GET {{baseURL}}/produtos
 Content-Type: application/json
@@ -24,7 +23,8 @@ Content-Type: application/json
     "marca": "Alcon",
     "fabricante": "Sanofi Aventis",
     "descricao": "Este medicamento é indicado como analgésico (para dor) e antitérmico (para febre)",
-    "preco": 15.99
+    "preco": 26.50
+    
 }
 
 ###

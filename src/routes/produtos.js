@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
         .input('marca', sql.VarChar(30), marca)
         .input('fabricante', sql.VarChar(30), fabricante)
         .input('descricao', sql.VarChar(500), descricao)
-        .input('preco', sql.Numeric, preco)
+        .input('preco', sql.Numeric(5,2), preco)
         .execute('SP_I_FAR_FARMACIA')
     }).then(dados => {
         res.status(200).json(dados.output)
@@ -82,7 +82,7 @@ router.put('/', (req, res) => {
         .input('marca', sql.VarChar(30), marca)
         .input('fabricante', sql.VarChar(30), fabricante)
         .input('descricao', sql.VarChar(500), descricao)
-        .input('preco', sql.Numeric, preco)
+        .input('preco', sql.Numeric(5,2), preco)
         .execute('SP_U_FAR_FARMACIA')
     }).then(dados => {
         res.status(200).json('Produto alterado com sucesso!')
